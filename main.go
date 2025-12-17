@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-const version = "1.2.0"
+const version = "1.2.1"
 
 func main() {
 	http.HandleFunc("/health", healthHandler)
@@ -30,6 +30,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func metricsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "# Basic metrics\nrequests_total 42\n")
 }
