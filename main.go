@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-const version = "1.3.0"
+const version = "1.4.0"
 
 func main() {
 	http.HandleFunc("/health", healthHandler)
@@ -14,6 +14,7 @@ func main() {
 	http.HandleFunc("/metrics", metricsHandler)
 	http.HandleFunc("/api/status", statusHandler)
 	http.HandleFunc("/api/logs", logsHandler)
+	http.HandleFunc("/api/config", configHandler)
 
 	log.Printf("Mock Incident Service v%s starting on :8080", version)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
@@ -44,4 +45,9 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 func logsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, `{"logs":[{"level":"info","message":"Request received","timestamp":"2024-01-15T10:00:00Z"}]}`)
+}
+
+func configHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, `{"environment":"production","port":8080,"debug":false}`)
 }
