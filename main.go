@@ -6,15 +6,15 @@ import (
 	"net/http"
 )
 
-const version = "1.4.1"
+const version = "2.0.0"
 
 func main() {
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/metrics", metricsHandler)
-	http.HandleFunc("/api/status", statusHandler)
-	http.HandleFunc("/api/logs", logsHandler)
-	http.HandleFunc("/api/config", configHandler)
+	http.HandleFunc("/v2/status", statusHandler)
+	http.HandleFunc("/v2/logs", logsHandler)
+	http.HandleFunc("/v2/config", configHandler)
 
 	log.Printf("Mock Incident Service v%s starting on :8080", version)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
