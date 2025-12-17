@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-const version = "1.4.0"
+const version = "1.4.1"
 
 func main() {
 	http.HandleFunc("/health", healthHandler)
@@ -23,6 +23,7 @@ func main() {
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "OK - v%s", version)
 }
